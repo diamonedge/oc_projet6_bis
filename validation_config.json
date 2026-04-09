@@ -1,0 +1,26 @@
+{
+  "allowed_building_types": [
+    "Multifamily HR (10+)",
+    "Multifamily LR (1-4)",
+    "Multifamily MR (5-9)",
+    "NonResidential",
+    "Nonresidential COS",
+    "SPS-District K-12"
+  ],
+  "allowed_property_types": [
+    "High-Rise Multifamily",
+    "K-12 School",
+    "Large Office",
+    "Low-Rise Multifamily",
+    "Mid-Rise Multifamily",
+    "Office",
+    "Retail Store",
+    "Senior Care Community",
+    "Small- and Mid-Sized Office",
+    "Warehouse"
+  ],
+  "yearbuilt_min": 1800,
+  "yearbuilt_max": 2100,
+  "surface_min": 1.0,
+  "surface_max": 10000000.0
+}

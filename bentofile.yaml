@@ -1,0 +1,33 @@
+service: "service:EnergyService"
+
+description: "API BentoML de prédiction de consommation énergétique sur le dataset Seattle."
+
+labels:
+  project: "seattle-energy"
+  framework: "scikit-learn"
+  api: "bentoml"
+
+include:
+  - "service.py"
+  - "schemas.py"
+  - "validation_config.json"
+  - "requirements.txt"
+  - "save_model.py"
+  - "2016_Building_Energy_Benchmarking.csv"
+
+exclude:
+  - "__pycache__/"
+  - "*.py[cod]"
+  - ".ipynb_checkpoints/"
+  - ".venv/"
+  - "data/"
+  - "notebooks/"
+  - "tests/"
+
+python:
+  requirements_txt: "./requirements.txt"
+  lock_packages: false
+
+docker:
+  distro: "debian"
+  python_version: "3.11"
