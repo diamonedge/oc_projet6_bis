@@ -1,6 +1,6 @@
 service: "service:EnergyService"
 
-description: "API BentoML de prédiction de consommation énergétique sur le dataset Seattle."
+description: "API BentoML"
 
 labels:
   project: "seattle-energy"
