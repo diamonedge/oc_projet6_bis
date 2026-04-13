@@ -1,4 +1,4 @@
-export BENTOML_HOST=34.22.135.113
-export BENTOML_PORT=80
+export BENTOML_HOST=0.0.0.0
+export BENTOML_PORT=3000
 uv run bentoml build
 uv run bentoml serve .
