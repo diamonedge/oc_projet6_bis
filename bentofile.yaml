@@ -13,7 +13,6 @@ include:
   - "validation_config.json"
   - "requirements.txt"
   - "save_model.py"
-  - "2016_Building_Energy_Benchmarking.csv"
 
 exclude:
   - "__pycache__/"

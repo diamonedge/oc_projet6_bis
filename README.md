@@ -3,3 +3,5 @@ Projet bento ML
 
 ## launch from cli
 ```uv run python save_model.py && uv run bentoml serve service:EnergyService```
+## launch bentoml from cli
+``̀ uv run bentoml build && uv run bentoml serve .``̀ 
