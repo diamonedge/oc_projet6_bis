@@ -3,7 +3,6 @@ from __future__ import annotations
 from decimal import Decimal
 import pandas as pd
 import numpy as np
-from fetch_data import download_seattle_original_csv
 
 import json
 from pathlib import Path
@@ -83,7 +82,7 @@ building_consumption["BuildingAge"] = (2015-building_consumption["YearBuilt"])
 building_consumption["Decade"] = (building_consumption["YearBuilt"] // 10) * 10
 building_consumption=building_consumption[building_consumption['Outlier'].isnull()]
 building_consumption=building_consumption[building_consumption['ComplianceStatus']!= 'Compliant']
-building_consumption4=building_consumption4[building_consumption4['BuildingType'].isin(['NonResidential', 'Nonresidential COS','SPS-District K-12', 'Campus', 'Nonresidential WA'])]
+building_consumption=building_consumption[building_consumption['BuildingType'].isin(['NonResidential', 'Nonresidential COS','SPS-District K-12', 'Campus', 'Nonresidential WA'])]
 
 print("Cleaning columns ...")
 building_consumption=building_consumption.drop([
@@ -134,6 +133,11 @@ building_consumption=building_consumption.drop([
 ,'YearBuilt'
 ], axis=1)
 
+building_consumption=building_consumption[building_consumption['PrimaryPropertyType'].isin(['Hotel', 'Other', 'Mixed Use Property', 'K-12 School',
+       'University', 'Small- and Mid-Sized Office','Self-Storage Facility', 'Warehouse', 'Large Office',
+       'Senior Care Community', 'Medical Office', 'Retail Store','Hospital', 'Distribution Center','Worship Facility', 'Supermarket / Grocery Store', 'Laboratory',
+       'Refrigerated Warehouse', 'Restaurant', 'Office'])]
+
 building_consumption=building_consumption.rename(columns={
     "SiteEnergyUseWN(kBtu)": "EnergyConsumption"
     ,"PropertyGFATotal":"Surface"
@@ -141,10 +145,6 @@ building_consumption=building_consumption.rename(columns={
     , "NumberofFloors":"Floors"
     })
 
-building_consumption=building_consumption[building_consumption['PrimaryPropertyType'].isin(['Hotel', 'Other', 'Mixed Use Property', 'K-12 School',
-       'University', 'Small- and Mid-Sized Office','Self-Storage Facility', 'Warehouse', 'Large Office',
-       'Senior Care Community', 'Medical Office', 'Retail Store','Hospital', 'Distribution Center','Worship Facility', 'Supermarket / Grocery Store', 'Laboratory',
-       'Refrigerated Warehouse', 'Restaurant', 'Office'])]
 
 print("Adding features ...")
 
