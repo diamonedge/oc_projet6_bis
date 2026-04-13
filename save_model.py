@@ -81,7 +81,9 @@ building_consumption=building_consumption[building_consumption['NumberofBuilding
 building_consumption=building_consumption[building_consumption['NumberofBuildings'].notnull()]
 building_consumption["BuildingAge"] = (2015-building_consumption["YearBuilt"])
 building_consumption["Decade"] = (building_consumption["YearBuilt"] // 10) * 10
-
+building_consumption=building_consumption[building_consumption['Outlier'].isnull()]
+building_consumption=building_consumption[building_consumption['ComplianceStatus']!= 'Compliant']
+building_consumption4=building_consumption4[building_consumption4['BuildingType'].isin(['NonResidential', 'Nonresidential COS','SPS-District K-12', 'Campus', 'Nonresidential WA'])]
 
 print("Cleaning columns ...")
 building_consumption=building_consumption.drop([
@@ -139,6 +141,11 @@ building_consumption=building_consumption.rename(columns={
     , "NumberofFloors":"Floors"
     })
 
+building_consumption=building_consumption[building_consumption['PrimaryPropertyType'].isin(['Hotel', 'Other', 'Mixed Use Property', 'K-12 School',
+       'University', 'Small- and Mid-Sized Office','Self-Storage Facility', 'Warehouse', 'Large Office',
+       'Senior Care Community', 'Medical Office', 'Retail Store','Hospital', 'Distribution Center','Worship Facility', 'Supermarket / Grocery Store', 'Laboratory',
+       'Refrigerated Warehouse', 'Restaurant', 'Office'])]
+
 print("Adding features ...")
 
 building_consumption["log_EnergyConsumption"] = np.log1p(building_consumption["EnergyConsumption"])
@@ -167,7 +174,7 @@ preprocessor_rf = ColumnTransformer(
 
 model = Pipeline([
         ("preprocessing", preprocessor_rf),
-        ("model", DummyRegressor(strategy="mean"))
+        ("model", RandomForestRegressor(n_estimators=300,random_state=42,n_jobs=-1))
     ])
 
 print("Training model ...")
@@ -185,6 +192,3 @@ bento_model = bentoml.sklearn.save_model("seattle_energy_model",model,
 )
 
 print(bento_model)
-
-
-
