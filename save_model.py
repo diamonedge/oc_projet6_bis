@@ -72,17 +72,20 @@ def flag_outliers_group_iqr(data, group_col, value_col, k=1.5, min_group_size=30
 print("Reading CSV ...")
 building_consumption = pd.read_csv("2016_Building_Energy_Benchmarking.csv")
 
-print("Adding columns ...")
-building_consumption=building_consumption[building_consumption['DefaultData']==True]
+print("Filtering ...")
 building_consumption=building_consumption[building_consumption['SiteEUIWN(kBtu/sf)'].notnull()]
 building_consumption=building_consumption[building_consumption['SiteEnergyUseWN(kBtu)'].notnull()]
 building_consumption=building_consumption[building_consumption['NumberofBuildings']!=111]
-building_consumption=building_consumption[building_consumption['NumberofBuildings'].notnull()]
-building_consumption["BuildingAge"] = (2015-building_consumption["YearBuilt"])
-building_consumption["Decade"] = (building_consumption["YearBuilt"] // 10) * 10
 building_consumption=building_consumption[building_consumption['Outlier'].isnull()]
 building_consumption=building_consumption[building_consumption['ComplianceStatus']== 'Compliant']
-building_consumption=building_consumption[building_consumption['BuildingType'].isin(['NonResidential', 'Nonresidential COS','SPS-District K-12', 'Campus', 'Nonresidential WA'])]
+building_consumption=building_consumption[building_consumption['PrimaryPropertyType'].isin(['Hotel', 'Other', 'Mixed Use Property', 'K-12 School',
+       'University', 'Small- and Mid-Sized Office','Self-Storage Facility', 'Warehouse', 'Large Office',
+       'Senior Care Community', 'Medical Office', 'Retail Store','Hospital', 'Distribution Center','Worship Facility', 'Supermarket / Grocery Store', 'Laboratory',
+       'Refrigerated Warehouse', 'Restaurant', 'Office'])]
+
+print("Adding columns ...")
+building_consumption["BuildingAge"] = (2015-building_consumption["YearBuilt"])
+building_consumption["Decade"] = (building_consumption["YearBuilt"] // 10) * 10
 
 print("Cleaning columns ...")
 building_consumption=building_consumption.drop([
@@ -133,18 +136,12 @@ building_consumption=building_consumption.drop([
 ,'YearBuilt'
 ], axis=1)
 
-building_consumption=building_consumption[building_consumption['PrimaryPropertyType'].isin(['Hotel', 'Other', 'Mixed Use Property', 'K-12 School',
-       'University', 'Small- and Mid-Sized Office','Self-Storage Facility', 'Warehouse', 'Large Office',
-       'Senior Care Community', 'Medical Office', 'Retail Store','Hospital', 'Distribution Center','Worship Facility', 'Supermarket / Grocery Store', 'Laboratory',
-       'Refrigerated Warehouse', 'Restaurant', 'Office'])]
-
 building_consumption=building_consumption.rename(columns={
     "SiteEnergyUseWN(kBtu)": "EnergyConsumption"
     ,"PropertyGFATotal":"Surface"
     , "PrimaryPropertyType":"PropertyType"
     , "NumberofFloors":"Floors"
     })
-
 
 print("Adding features ...")
 
@@ -154,6 +151,9 @@ building_consumption["log_Surface"] = np.log1p(building_consumption["Surface"])
 building_consumption["outlier_surface"] = flag_outliers_group_iqr(building_consumption, "BuildingType", "log_Surface")
 building_consumption["outlier_eui"] = flag_outliers_group_iqr(building_consumption, "BuildingType", "log_EUI")
 building_consumption["SurfacePerFloor"] = building_consumption["Surface"]/(building_consumption["Floors"])
+
+building_consumption.info()
+
 
 print("Model parameters ...")
 X=building_consumption[['Surface','PropertyType','Decade','BuildingType']]
