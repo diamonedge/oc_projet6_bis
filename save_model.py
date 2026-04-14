@@ -81,7 +81,7 @@ building_consumption=building_consumption[building_consumption['NumberofBuilding
 building_consumption["BuildingAge"] = (2015-building_consumption["YearBuilt"])
 building_consumption["Decade"] = (building_consumption["YearBuilt"] // 10) * 10
 building_consumption=building_consumption[building_consumption['Outlier'].isnull()]
-building_consumption=building_consumption[building_consumption['ComplianceStatus']!= 'Compliant']
+building_consumption=building_consumption[building_consumption['ComplianceStatus']== 'Compliant']
 building_consumption=building_consumption[building_consumption['BuildingType'].isin(['NonResidential', 'Nonresidential COS','SPS-District K-12', 'Campus', 'Nonresidential WA'])]
 
 print("Cleaning columns ...")
