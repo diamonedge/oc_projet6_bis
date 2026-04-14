@@ -159,7 +159,7 @@ print("Model parameters ...")
 X=building_consumption[['Surface','PropertyType','Decade','BuildingType']]
 y=building_consumption.EnergyConsumption
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 colonnes_numeriques = ['Surface']
 colonnes_categorielles = ['PropertyType','Decade','BuildingType']
