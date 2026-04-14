@@ -24,8 +24,8 @@ _VALIDATION_CONFIG = load_validation_config()
 
 ALLOWED_BUILDING_TYPES = set(_VALIDATION_CONFIG["allowed_building_types"])
 ALLOWED_PROPERTY_TYPES = set(_VALIDATION_CONFIG["allowed_property_types"])
-YEARBUILT_MIN = int(_VALIDATION_CONFIG["yearbuilt_min"])
-YEARBUILT_MAX = int(_VALIDATION_CONFIG["yearbuilt_max"])
+DECADE_MIN = int(_VALIDATION_CONFIG["decade_min"])
+DECADE_MAX = int(_VALIDATION_CONFIG["decade_min"])
 SURFACE_MIN = float(_VALIDATION_CONFIG["surface_min"])
 SURFACE_MAX = float(_VALIDATION_CONFIG["surface_max"])
 
@@ -46,11 +46,11 @@ class PredictionInput(BaseModel):
         max_length=150,
         description="Type de propriété exactement conforme aux catégories d'entraînement."
     )
-    YearBuilt: int = Field(
+    Decade: int = Field(
         strict=True,
-        ge=YEARBUILT_MIN,
-        le=YEARBUILT_MAX,
-        description="Année de construction."
+        ge=DECADE_MIN,
+        le=DECADE_MAX,
+        description="Décénnie de construction."
     )
     Surface: float = Field(
         strict=True,
@@ -85,7 +85,7 @@ class PredictionInput(BaseModel):
 
         if self.YearBuilt > current_year:
             raise ValueError(
-                f"YearBuilt={self.YearBuilt} est dans le futur."
+                f"Decade={self.Decade} est dans le futur."
             )
 
         if self.Surface < 10:
