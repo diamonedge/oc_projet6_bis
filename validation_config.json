@@ -5,15 +5,29 @@
     "SPS-District K-12"
   ],
   "allowed_property_types": [
-    "K-12 School",
-    "Large Office",
-    "Office",
-    "Retail Store",
-    "Small- and Mid-Sized Office",
-    "Warehouse"
+	"Hotel",
+	"Other",
+	"Mixed Use Property",
+	"K-12 School",
+	"University",
+	"Small- and Mid-Sized Office",
+	"Self-Storage Facility",
+	"Warehouse",
+	"Large Office",
+	"Senior Care Community",
+	"Medical Office",
+	"Retail Store",
+	"Hospital",
+	"Distribution Center",
+	"Worship Facility",
+	"Supermarket / Grocery Store",
+	"Laboratory",
+	"Refrigerated Warehouse",
+	"Restaurant",
+	"Office"
   ],
-  "yearbuilt_min": 1800,
-  "yearbuilt_max": 2100,
+  "decade_min": 1800,
+  "decade_max": 2100,
   "surface_min": 1.0,
   "surface_max": 10000000.0
 }

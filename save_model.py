@@ -156,12 +156,12 @@ building_consumption["outlier_eui"] = flag_outliers_group_iqr(building_consumpti
 building_consumption["SurfacePerFloor"] = building_consumption["Surface"]/(building_consumption["Floors"])
 
 print("Model parameters ...")
-X=building_consumption[['Surface','PropertyType','Decade','BuildingType', 'Floors', 'BuildingAge', 'outlier_surface', 'outlier_eui']]
+X=building_consumption[['Surface','PropertyType','Decade','BuildingType']]
 y=building_consumption.EnergyConsumption
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
 
-colonnes_numeriques = ["Surface", "Floors"]
+colonnes_numeriques = ["Surface"]
 colonnes_categorielles = ['PropertyType','Decade','BuildingType']
 
 # Prétraitement pour RandomForest
@@ -187,7 +187,7 @@ write_validation_config(building_consumption)
 bento_model = bentoml.sklearn.save_model("seattle_energy_model",model,
     metadata={
         "target": "EnergyConsumption",
-        "features": ["BuildingType", "PropertyType", "YearBuilt", "Surface"],
+        "features": ["BuildingType", "PropertyType", "Decade", "Surface"],
     },
 )
 

@@ -18,7 +18,6 @@ image = (
     )
 )
 
-
 @bentoml.service(
     image=image,
     resources={"cpu": "1", "memory": "512Mi"},
@@ -35,7 +34,7 @@ class EnergyService:
         input_spec=PredictionInput,
         output_spec=PredictionOutput,
     )
-    def predict(self, payload: PredictionInput) -> PredictionOutput:
-        X = pd.DataFrame([payload.model_dump()])
+    def predict(self, **payload) -> PredictionOutput:
+        X = pd.DataFrame([payload])
         pred = self.model.predict(X)[0]
-        return PredictionOutput(prediction=float(pred))        
+        return PredictionOutput(prediction=float(pred))    
