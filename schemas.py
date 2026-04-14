@@ -25,7 +25,7 @@ _VALIDATION_CONFIG = load_validation_config()
 ALLOWED_BUILDING_TYPES = set(_VALIDATION_CONFIG["allowed_building_types"])
 ALLOWED_PROPERTY_TYPES = set(_VALIDATION_CONFIG["allowed_property_types"])
 DECADE_MIN = int(_VALIDATION_CONFIG["decade_min"])
-DECADE_MAX = int(_VALIDATION_CONFIG["decade_min"])
+DECADE_MAX = int(_VALIDATION_CONFIG["decade_max"])
 SURFACE_MIN = float(_VALIDATION_CONFIG["surface_min"])
 SURFACE_MAX = float(_VALIDATION_CONFIG["surface_max"])
 
