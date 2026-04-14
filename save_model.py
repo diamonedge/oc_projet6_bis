@@ -37,8 +37,8 @@ def write_validation_config(df, output_path: str = "validation_config.json") -> 
         "allowed_property_types": sorted(
             df["PropertyType"].dropna().astype(str).str.strip().unique().tolist()
         ),
-        "yearbuilt_min": 1800,
-        "yearbuilt_max": 2100,
+        "decade_min": 1800,
+        "decade_max": 2100,
         "surface_min": 1.0,
         "surface_max": 10_000_000.0,
     }
@@ -161,7 +161,7 @@ y=building_consumption.EnergyConsumption
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
 
-colonnes_numeriques = ["Surface"]
+colonnes_numeriques = ['Surface']
 colonnes_categorielles = ['PropertyType','Decade','BuildingType']
 
 # Prétraitement pour RandomForest
