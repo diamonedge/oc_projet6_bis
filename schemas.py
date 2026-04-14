@@ -83,7 +83,7 @@ class PredictionInput(BaseModel):
     def validate_business_rules(self) -> "PredictionInput":
         current_year = date.today().year
 
-        if self.YearBuilt > current_year:
+        if self.Decade > current_year:
             raise ValueError(
                 f"Decade={self.Decade} est dans le futur."
             )
