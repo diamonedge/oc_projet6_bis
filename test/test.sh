@@ -5,7 +5,7 @@ curl -X POST "http://${URL}:3000/predict" \
   -d '{
     "BuildingType": "Spaceship",
     "PropertyType": "Office",
-    "YearBuilt": "1990",
+    "Decade": "1990",
     "Surface": -25,
     "ExtraField": 1
   }'
@@ -16,7 +16,7 @@ curl -X POST "http://${URL}:3000/predict" \
   -d '{
     "BuildingType": "NonResidential",
     "PropertyType": "Large Office",
-    "YearBuilt": 1990,
+    "Decade": 1990,
     "Surface": 103566.0
   }'
 echo ""
